@@ -7,13 +7,8 @@ let wHeight = 0;
 let dHeight = 0;
 let trackLength = 0;
 const location = document.location.toString();
-const scrollTriggers = {
-  scroll: false,
-  25: false,
-  50: false,
-  75: false,
-  100: false
-};
+let hasScrolled = false;
+const cache = [25, 50, 75, 100];
 
 function getDocHeight() {
   return Math.max(
@@ -38,40 +33,26 @@ function getScrolledAmount() {
 }
 
 function scrollCheck() {
+  if (!cache.length) {
+    return;
+  }
+
   scrollPercent = getScrolledAmount();
 
   if (lastPos !== scrollPercent) {
     lastPos = scrollPercent;
   }
 
-  if (!scrollTriggers.scroll) {
-    scrollTriggers.scroll = true;
+  if (!hasScrolled && scrollPercent > 0) {
+    hasScrolled = true;
     GATrack.sendEvent('scroll', location, 'Scrolled');
   }
 
-  switch (scrollPercent) {
-    case 25:
-      if (scrollTriggers['25']) break;
-      GATrack.sendEvent('scroll', location, 'Scrolled 25%');
-      scrollTriggers['25'] = true;
-      break;
-    case 50:
-      if (scrollTriggers['50']) break;
-      GATrack.sendEvent('scroll', location, 'Scrolled 50%');
-      scrollTriggers['50'] = true;
-      break;
-    case 75:
-      if (scrollTriggers['75']) break;
-      GATrack.sendEvent('scroll', location, 'Scrolled 75%');
-      scrollTriggers['75'] = true;
-      break;
-    case 100:
-      if (scrollTriggers['100']) break;
-      GATrack.sendEvent('scroll', location, 'Scrolled 100%');
-      scrollTriggers['100'] = true;
-      break;
-    default:
-  }
+  const events = cache.filter(a => a <= scrollPercent);
+  events.forEach(e => {
+    GATrack.sendEvent('scroll', location, `Scrolled ${e}%`);
+    cache.splice(cache.indexOf(e), 1);
+  });
 }
 
 computeSizes();
