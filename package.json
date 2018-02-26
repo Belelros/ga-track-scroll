@@ -9,7 +9,7 @@
     "build": "scriptkit build",
     "dev": "scriptkit dev",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "scriptkit"
+    "prepublishOnly": "scriptkit"
   },
   "repository": {
     "type": "git",
@@ -28,9 +28,9 @@
   },
   "homepage": "https://github.com/firstandthird/ga-track-scroll#readme",
   "devDependencies": {
-    "eslint-config-firstandthird": "3.2.0",
-    "eslint-plugin-import": "2.2.0",
-    "scriptkit": "0.2.0"
+    "eslint-config-firstandthird": "4.3.0",
+    "eslint-plugin-import": "2.9.0",
+    "scriptkit": "0.3.0"
   },
   "scriptkit": {
     "test": {
