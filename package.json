@@ -54,6 +54,7 @@
     }
   },
   "dependencies": {
+    "domassist": "^1.10.0",
     "ga-track": "^1.0.0",
     "scroll-bus": "^1.0.0"
   }

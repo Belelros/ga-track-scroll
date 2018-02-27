@@ -1,5 +1,6 @@
 import ScrollBus from 'scroll-bus';
 import GATrack from 'ga-track';
+import { fire } from 'domassist';
 
 let scrollPercent = 0;
 let lastPos = 0;
@@ -9,6 +10,10 @@ let trackLength = 0;
 const location = document.location.toString();
 let hasScrolled = false;
 const cache = [25, 50, 75, 100];
+
+const Events = {
+  Scroll: 'user:scroll'
+};
 
 function getDocHeight() {
   return Math.max(
@@ -49,8 +54,15 @@ function scrollCheck() {
   }
 
   const events = cache.filter(a => a <= scrollPercent);
+
   events.forEach(e => {
     GATrack.sendEvent('scroll', location, `Scrolled ${e}%`);
+    fire(document.body, Events.Scroll, {
+      bubbles: true,
+      detail: {
+        amount: e
+      }
+    });
     cache.splice(cache.indexOf(e), 1);
   });
 }
@@ -59,3 +71,5 @@ computeSizes();
 ScrollBus.on(scrollCheck);
 
 window.addEventListener('resize', computeSizes, false);
+
+export { Events };
