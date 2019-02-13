@@ -56,7 +56,24 @@ function scrollCheck() {
   const events = cache.filter(a => a <= scrollPercent);
 
   events.forEach(e => {
-    GATrack.sendEvent('scroll', location, `Scrolled ${e}%`);
+    const category = 'scroll';
+    const action = location;
+    const label = `Scrolled ${e}%`;
+    const value = e;
+
+    if (GATrack.isGTag) {
+        // Gtag check needs to go before since gtag creates a ga variable
+        const payload = {
+          event_category: category,
+          event_label: label,
+          value
+        };
+
+      GATrack.sendData('event', action, payload);
+    } else {
+      GATrack.sendData('send', 'event', category, action, label, value);
+    }
+
     fire(document.body, Events.Scroll, {
       bubbles: true,
       detail: {
