@@ -24,7 +24,7 @@ function getDocHeight() {
 
 function computeSizes() {
   wHeight = window.innerHeight ||
-      (document.documentElement || document.body).clientHeight;
+    (document.documentElement || document.body).clientHeight;
   dHeight = getDocHeight();
 
   trackLength = dHeight - wHeight;
@@ -62,12 +62,12 @@ function scrollCheck() {
     const value = e;
 
     if (GATrack.isGTag) {
-        // Gtag check needs to go before since gtag creates a ga variable
-        const payload = {
-          event_category: category,
-          event_label: label,
-          value
-        };
+      // Gtag check needs to go before since gtag creates a ga variable
+      const payload = {
+        event_category: category,
+        event_label: label,
+        value
+      };
 
       GATrack.sendData('event', action, payload);
     } else {
