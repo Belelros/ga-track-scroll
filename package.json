@@ -29,8 +29,8 @@
   "homepage": "https://github.com/firstandthird/ga-track-scroll#readme",
   "devDependencies": {
     "eslint-config-firstandthird": "4.3.0",
-    "eslint-plugin-import": "2.9.0",
-    "scriptkit": "0.3.0"
+    "eslint-plugin-import": "2.16.0",
+    "scriptkit": "1.0.0"
   },
   "scriptkit": {
     "test": {
