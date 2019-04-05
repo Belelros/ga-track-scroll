@@ -2,8 +2,8 @@
   "name": "ga-track-scroll",
   "version": "1.2.0",
   "description": "Google Analytics Scroll Tracking helper",
-  "main": "dist/ga-track-scroll.js",
-  "module": "index.js",
+  "main": "index.js",
+  "module": "dist/ga-track-scroll.esm.js",
   "scripts": {
     "start": "scriptkit",
     "build": "scriptkit build",
@@ -30,7 +30,7 @@
   "devDependencies": {
     "eslint-config-firstandthird": "4.3.0",
     "eslint-plugin-import": "2.16.0",
-    "scriptkit": "1.0.0"
+    "scriptkit": "2.0.2"
   },
   "scriptkit": {
     "test": {
@@ -54,8 +54,8 @@
     }
   },
   "dependencies": {
-    "domassist": "^1.10.0",
-    "ga-track": "^1.0.0",
-    "scroll-bus": "^1.0.0"
+    "domassist": "^2.0.2",
+    "ga-track": "^2.0.0",
+    "scroll-bus": "^2.0.0"
   }
 }

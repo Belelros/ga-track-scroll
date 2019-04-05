@@ -75,7 +75,6 @@ function scrollCheck() {
     }
 
     fire(document.body, Events.Scroll, {
-      bubbles: true,
       detail: {
         amount: e
       }
