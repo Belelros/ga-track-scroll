@@ -1,6 +1,6 @@
 import ScrollBus from 'scroll-bus';
 import GATrack from 'ga-track';
-import { fire } from 'domassist';
+import { fire, ready } from 'domassist';
 
 let scrollPercent = 0;
 let lastPos = 0;
@@ -37,6 +37,32 @@ function getScrolledAmount() {
   return Math.floor(scrollTop / trackLength * 100);
 }
 
+function trackScrollPosition(e) {
+  const category = 'scroll';
+  const action = location;
+  const label = `Scrolled ${e}%`;
+  const value = e;
+
+  if (GATrack.isGTag) {
+    // Gtag check needs to go before since gtag creates a ga variable
+    const payload = {
+      event_category: category,
+      event_label: label,
+      value
+    };
+
+    GATrack.sendData('event', action, payload);
+  } else {
+    GATrack.sendData('send', 'event', category, action, label, value);
+  }
+
+  fire(document.body, Events.Scroll, {
+    detail: {
+      amount: e
+    }
+  });
+}
+
 function scrollCheck() {
   if (!cache.length) {
     return;
@@ -56,36 +82,18 @@ function scrollCheck() {
   const events = cache.filter(a => a <= scrollPercent);
 
   events.forEach(e => {
-    const category = 'scroll';
-    const action = location;
-    const label = `Scrolled ${e}%`;
-    const value = e;
-
-    if (GATrack.isGTag) {
-      // Gtag check needs to go before since gtag creates a ga variable
-      const payload = {
-        event_category: category,
-        event_label: label,
-        value
-      };
-
-      GATrack.sendData('event', action, payload);
-    } else {
-      GATrack.sendData('send', 'event', category, action, label, value);
-    }
-
-    fire(document.body, Events.Scroll, {
-      detail: {
-        amount: e
-      }
-    });
+    trackScrollPosition(e);
     cache.splice(cache.indexOf(e), 1);
   });
 }
 
-computeSizes();
-ScrollBus.on(scrollCheck);
+ready(() => {
+  if (window.disableGATrackScroll !== true) {
+    computeSizes();
+    ScrollBus.on(scrollCheck);
 
-window.addEventListener('resize', computeSizes, false);
+    window.addEventListener('resize', computeSizes, false);
+  }
+});
 
-export { Events };
+export { Events, trackScrollPosition };
