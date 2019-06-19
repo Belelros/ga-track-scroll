@@ -1,6 +1,6 @@
 {
   "name": "ga-track-scroll",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Google Analytics Scroll Tracking helper",
   "main": "index.js",
   "module": "dist/ga-track-scroll.esm.js",
