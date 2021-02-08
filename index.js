@@ -19,7 +19,8 @@ function getDocHeight() {
   return Math.max(
     document.body.scrollHeight, document.documentElement.scrollHeight,
     document.body.offsetHeight, document.documentElement.offsetHeight,
-    document.body.clientHeight, document.documentElement.clientHeight);
+    document.body.clientHeight, document.documentElement.clientHeight
+  );
 }
 
 function computeSizes() {
@@ -37,28 +38,27 @@ function getScrolledAmount() {
   return Math.floor(scrollTop / trackLength * 100);
 }
 
-function trackScrollPosition(e) {
+function trackScrollPosition(amount, overriddenLabel) {
   const category = 'scroll';
   const action = location;
-  const label = `Scrolled ${e}%`;
-  const value = e;
+  const label = overriddenLabel || `Scrolled ${amount}%`;
 
   if (GATrack.isGTag) {
     // Gtag check needs to go before since gtag creates a ga variable
     const payload = {
       event_category: category,
       event_label: label,
-      value
+      value: amount
     };
 
     GATrack.sendData('event', action, payload);
   } else {
-    GATrack.sendData('send', 'event', category, action, label, value);
+    GATrack.sendData('send', 'event', category, action, label, amount);
   }
 
   fire(document.body, Events.Scroll, {
     detail: {
-      amount: e
+      amount
     }
   });
 }
