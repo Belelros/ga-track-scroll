@@ -1,12 +1,6 @@
 <h1 align="center">Google Analytics Scroll</h1>
 
 <p align="center">
-  <a href="https://github.com/firstandthird/ga-track-scroll/actions">
-    <img src="https://img.shields.io/github/workflow/status/firstandthird/ga-track-scroll/Test/main?label=Tests&style=for-the-badge" alt="Test Status"/>
-  </a>
-  <a href="https://github.com/firstandthird/ga-track-scroll/actions">
-    <img src="https://img.shields.io/github/workflow/status/firstandthird/ga-track-scroll/Lint/main?label=Lint&style=for-the-badge" alt="Lint Status"/>
-  </a>
   <img src="https://img.shields.io/npm/v/@firstandthird/ga-track-scroll?style=for-the-badge" alt="NPM" />
 </p>
 
