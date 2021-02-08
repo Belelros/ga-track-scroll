@@ -6,10 +6,11 @@
   "module": "dist/ga-track-scroll.js",
   "scripts": {
     "start": "scriptkit",
-    "build": "scriptkit build",
     "dev": "scriptkit dev",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublishOnly": "scriptkit"
+    "build": "scriptkit build",
+    "test": "echo \"No tests available\"",
+    "lint": "npx eslint index.js",
+    "prepublishOnly": "npm run lint && scriptkit"
   },
   "repository": {
     "type": "git",
@@ -28,23 +29,23 @@
   },
   "homepage": "https://github.com/firstandthird/ga-track-scroll#readme",
   "devDependencies": {
-    "eslint-config-firstandthird": "^4.4.0",
-    "eslint-plugin-import": "^2.18.0",
+    "concurrently": "^5.3.0",
+    "eslint": "^7.19.0",
+    "eslint-config-firstandthird": "^6.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "nodemon": "^2.0.7",
     "scriptkit": "^3.0.0"
   },
   "scriptkit": {
     "test": {
       "enabled": false
     },
-    "files": {
-      "dist/ga-track-scroll.js": "index.js"
+    "serve": {
+      "enabled": true
     },
-    "scripts": {
-      "babel": {
-        "exclude": [
-          "node_modules/tape-rollup/*"
-        ]
-      }
+    "files": {
+      "dist/ga-track-scroll.js": "index.js",
+      "dist/ga-track-scroll-module.js": "module/infinite-scroll-tracker.js"
     }
   },
   "eslintConfig": {
@@ -55,7 +56,8 @@
   },
   "dependencies": {
     "domassist": "^2.2.0",
-    "ga-track": "^2.2.0",
+    "domodule": "^8.1.0",
+    "ga-track": "^2.3.1",
     "scroll-bus": "^2.1.0"
   }
 }
